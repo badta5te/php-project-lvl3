@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DomainController extends Controller
 {
@@ -13,7 +14,8 @@ class DomainController extends Controller
      */
     public function index()
     {
-        //
+        $domains = DB::table('domains')->get();
+        return view('domain.index', compact('domains'));
     }
 
     /**
