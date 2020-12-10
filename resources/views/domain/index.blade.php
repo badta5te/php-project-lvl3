@@ -1,17 +1,20 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Domains</h1>
-    @foreach ($domains as $domain)
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                {{ $domain->name }}
-            </div>
-            <div class="col">
-                {{ $domain->id }}
-            </div>
-        </div>
-    </div>
-    @endforeach
+    <table class="table table-borderless">
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach($domains as $domain)
+            <tr>
+                <td>{{ $domain->id }}</td>
+                <td>{{ $domain->name }}</td>
+            </tr>
+        @endforeach
+        </tbody>
+    </table>
 @endsection
