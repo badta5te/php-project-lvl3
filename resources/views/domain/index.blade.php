@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <table class="table table-borderless">
+    <table class="table table-bordered table-hover text-nowrap">
         <thead>
         <tr>
             <th scope="col">Id</th>
@@ -12,7 +12,7 @@
         @foreach($domains as $domain)
             <tr>
                 <td>{{ $domain->id }}</td>
-                <td>{{ $domain->name }}</td>
+                <td><a href="{{ route('domains.show', $domain->id) }}">{{ $domain->name }}</a></td>
             </tr>
         @endforeach
         </tbody>

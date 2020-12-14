@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class DomainController extends Controller
 {
@@ -36,7 +37,32 @@ class DomainController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'domain.name' => 'required|url'
+        ]);
+
+        $url = $request->input('domain.name');
+        $domain = strtolower(parse_url($url, PHP_URL_HOST));
+
+        $domainInDb = DB::table('domains')->where('name', $domain)->first();
+
+        if ($domainInDb) {
+            flash('Url exists');
+
+            return redirect()
+            ->route('domains.index');
+        }
+
+        DB::table('domains')->insert([
+            'name' => $domain,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        flash('Url added')->success();
+
+        return redirect()
+            ->route('domains.index');
     }
 
     /**
@@ -47,7 +73,11 @@ class DomainController extends Controller
      */
     public function show($id)
     {
-        //
+        $domain = DB::table('domains')
+            ->where('id', $id)
+            ->first();
+
+        return view('domain.show', compact('domain'));
     }
 
     /**
