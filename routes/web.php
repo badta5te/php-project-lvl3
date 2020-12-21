@@ -13,7 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('domains', 'DomainController');
+Route::resources([
+    'domains' => 'DomainController',
+    'domain.checks' => 'DomainCheckController'
+]);
 
 Route::get('/', function () {
     return view('welcome');
