@@ -35,9 +35,7 @@
             </div>
           </nav>
           <main class="flex-grow-1">
-            <div class="container mt-4">
                 @include('flash::message')
-                <div>
                     @if ($errors->any())
                         <div class="alert alert-danger">
                             <ul>
@@ -48,8 +46,6 @@
                         </div>
                     @endif
                     @yield('content')
-                </div>
-            </div>
           </main>
     </body>
 </html>
