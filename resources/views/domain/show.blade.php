@@ -25,4 +25,18 @@
                 </tbody>
         </table>
     </div>
+    <form method="post" action="{{ route('domains.checks.store', $domain->id) }}">
+        @csrf
+        <input type="submit" class="btn btn-primary" value="Run check">
+    </form>
+    <table class="table table-bordered table-hover text-nowrap">
+        <tbody><tr>
+            <th>Id</th>
+            <th>Status Code</th>
+            <th>h1</th>
+            <th>Keywords</th>
+            <th>Description</th>
+            <th>Created At</th>
+        </tr>
+        </tbody></table>
 @endsection
