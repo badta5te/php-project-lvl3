@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DomainCheckController extends Controller
 {
@@ -26,15 +27,19 @@ class DomainCheckController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store($domainId)
     {
-        //
+        // $domain = DB::table('domains')->where('id', $domainId)->first();
+
+        DB::table('domain_checks')->insert([
+            'domain_id' => $domainId,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        flash('Url checked')->info();
+
+        return redirect()->route('domains.show', $domainId);
     }
 
     /**

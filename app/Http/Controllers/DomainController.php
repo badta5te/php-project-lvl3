@@ -16,7 +16,16 @@ class DomainController extends Controller
     public function index()
     {
         $domains = DB::table('domains')->get();
-        return view('domain.index', compact('domains'));
+
+        $latestCheck = DB::table('domain_checks')
+            ->distinct('domain_id')
+            ->select('domain_id', 'created_at')
+            ->orderBy('domain_id')
+            ->latest()
+            ->get()
+            ->keyBy('domain_id');
+
+        return view('domain.index', compact('domains', 'latestCheck'));
     }
 
     /**
@@ -53,7 +62,7 @@ class DomainController extends Controller
             ->route('domains.index');
         }
 
-        DB::table('domains')->insert([
+        $id = DB::table('domains')->insertGetId([
             'name' => $domain,
             'created_at' => now(),
             'updated_at' => now()
@@ -62,7 +71,7 @@ class DomainController extends Controller
         flash('Url added')->success();
 
         return redirect()
-            ->route('domains.index');
+            ->route('domains.show', $id);
     }
 
     /**
@@ -77,7 +86,15 @@ class DomainController extends Controller
             ->where('id', $id)
             ->first();
 
-        return view('domain.show', compact('domain'));
+        if (!$domain) {
+            abort(404);
+        }
+
+        $domainChecks = DB::table('domain_checks')
+            ->where('domain_id', $id)
+            ->get();
+
+        return view('domain.show', compact('domain', 'domainChecks'));
     }
 
     /**

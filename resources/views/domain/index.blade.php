@@ -1,11 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="container-lg">
+    {{-- {{$latestCheck}} --}}
     <table class="table table-bordered table-hover text-nowrap">
         <thead>
         <tr>
-            <th scope="col">Id</th>
-            <th scope="col">Name</th>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Latest Check</th>
         </tr>
         </thead>
         <tbody>
@@ -13,8 +16,10 @@
             <tr>
                 <td>{{ $domain->id }}</td>
                 <td><a href="{{ route('domains.show', $domain->id) }}">{{ $domain->name }}</a></td>
+                <td>{{ $latestCheck[$domain->id]->created_at ?? '' }}</td>
             </tr>
         @endforeach
         </tbody>
     </table>
+</div>
 @endsection
