@@ -59,7 +59,7 @@ class DomainController extends Controller
             flash('Url exists');
 
             return redirect()
-            ->route('domains.index');
+                ->route('domains.show', $domainInDb->id);
         }
 
         $id = DB::table('domains')->insertGetId([

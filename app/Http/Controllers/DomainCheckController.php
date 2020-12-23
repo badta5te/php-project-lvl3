@@ -29,8 +29,6 @@ class DomainCheckController extends Controller
 
     public function store($domainId)
     {
-        // $domain = DB::table('domains')->where('id', $domainId)->first();
-
         DB::table('domain_checks')->insert([
             'domain_id' => $domainId,
             'created_at' => now(),
@@ -39,7 +37,8 @@ class DomainCheckController extends Controller
 
         flash('Url checked')->info();
 
-        return redirect()->route('domains.show', $domainId);
+        return redirect()
+            ->route('domains.show', $domainId);
     }
 
     /**
