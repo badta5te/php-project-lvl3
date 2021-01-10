@@ -34,12 +34,9 @@ class DomainCheckControllerTest extends TestCase
     {
         $this->withoutMiddleware();
 
+        $testHtml = file_get_contents(__DIR__ . '/../fixtures/test.html');
         Http::fake([
-            $this->url => Http::response([
-                'h1' => 'test h1',
-                'keywords' => 'test keywords',
-                'description' => 'test description'
-            ], 200)
+            $this->url => Http::response($testHtml, 200)
         ]);
 
         $response = $this->post(route('domain.checks.store', $this->id));
