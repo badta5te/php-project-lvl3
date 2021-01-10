@@ -23,6 +23,7 @@ class DomainCheckControllerTest extends TestCase
         $this->url = $faker->url;
         $this->domain = strtolower(parse_url($this->url, PHP_URL_HOST));
 
+
         $this->id = DB::table('domains')->insertGetId([
             'name' => $this->domain,
             'created_at' => now(),
@@ -36,7 +37,7 @@ class DomainCheckControllerTest extends TestCase
 
         $testHtml = file_get_contents(__DIR__ . '/../fixtures/test.html');
         Http::fake([
-            $this->url => Http::response($testHtml, 200)
+            $this->domain => Http::response($testHtml, 200)
         ]);
 
         $response = $this->post(route('domain.checks.store', $this->id));
