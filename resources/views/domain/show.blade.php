@@ -30,11 +30,14 @@
         @csrf
         <input type="submit" class="btn btn-primary mb-3" value="Run check">
     </form>
-    <table class="table table-bordered table-hover text-nowrap">
+    <table class="table table-bordered table-hover">
             <thead>
             <tr>
                 <th>Id</th>
                 <th>Status Code</th>
+                <th>h1</th>
+                <th>Keywords</th>
+                <th>Description</th>
                 <th>Created At</th>
             </tr>
             </thead>
@@ -43,6 +46,9 @@
                 <tr>
                     <td>{{ $domainCheck->id }}</td>
                     <td>{{ $domainCheck->status_code }}</td>
+                    <td>{{ $domainCheck->h1 }}</td>
+                    <td>{{ $domainCheck->keywords }}</td>
+                    <td>{{ $domainCheck->description }}</td>
                     <td>{{ $domainCheck->created_at }}</td>
                 </tr>
             @endforeach

@@ -91,6 +91,7 @@ class DomainController extends Controller
 
         $domainChecks = DB::table('domain_checks')
             ->where('domain_id', $id)
+            ->orderByDesc('id')
             ->get();
 
         return view('domain.show', compact('domain', 'domainChecks'));

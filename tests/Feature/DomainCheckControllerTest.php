@@ -34,12 +34,21 @@ class DomainCheckControllerTest extends TestCase
     {
         $this->withoutMiddleware();
 
-        Http::fake();
+        Http::fake([
+            $this->url => Http::response([
+                'h1' => 'test h1',
+                'keywords' => 'test keywords',
+                'description' => 'test description'
+            ], 200)
+        ]);
 
         $response = $this->post(route('domain.checks.store', $this->id));
         $response->assertStatus(302);
         $this->assertDatabaseHas('domain_checks', [
             'domain_id' => $this->id,
+            'h1' => 'test h1',
+            'keywords' => 'test keywords',
+            'description' => 'test description',
             'status_code' => '200'
         ]);
     }
