@@ -35,6 +35,10 @@ class DomainCheckController extends Controller
             ->find($domainId)
             ->name;
 
+        if (!$domain) {
+            return abort(404);
+        }
+
         $response = Http::get($domain);
 
         $body = $response->body();
