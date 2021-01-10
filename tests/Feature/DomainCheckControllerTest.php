@@ -6,6 +6,7 @@ use Faker\Factory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 
 class DomainCheckControllerTest extends TestCase
@@ -33,8 +34,13 @@ class DomainCheckControllerTest extends TestCase
     {
         $this->withoutMiddleware();
 
+        Http::fake();
+
         $response = $this->post(route('domain.checks.store', $this->id));
         $response->assertStatus(302);
-        $this->assertDatabaseHas('domain_checks', ['domain_id' => $this->id]);
+        $this->assertDatabaseHas('domain_checks', [
+            'domain_id' => $this->id,
+            'status_code' => '200'
+        ]);
     }
 }

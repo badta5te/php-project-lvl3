@@ -18,7 +18,7 @@ class DomainController extends Controller
 
         $latestCheck = DB::table('domain_checks')
             ->distinct('domain_id')
-            ->select('domain_id', 'created_at')
+            ->select('domain_id', 'created_at', 'status_code')
             ->orderBy('domain_id')
             ->latest()
             ->get()

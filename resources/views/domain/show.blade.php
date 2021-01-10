@@ -34,6 +34,7 @@
             <thead>
             <tr>
                 <th>Id</th>
+                <th>Status Code</th>
                 <th>Created At</th>
             </tr>
             </thead>
@@ -41,6 +42,7 @@
             @foreach($domainChecks as $domainCheck)
                 <tr>
                     <td>{{ $domainCheck->id }}</td>
+                    <td>{{ $domainCheck->status_code }}</td>
                     <td>{{ $domainCheck->created_at }}</td>
                 </tr>
             @endforeach

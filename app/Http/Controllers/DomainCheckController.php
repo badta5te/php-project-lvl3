@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 
 class DomainCheckController extends Controller
 {
@@ -29,8 +30,15 @@ class DomainCheckController extends Controller
 
     public function store($domainId)
     {
+        $domain = DB::table('domains')
+            ->find($domainId)
+            ->name;
+
+        $response = Http::get($domain);
+
         DB::table('domain_checks')->insert([
             'domain_id' => $domainId,
+            'status_code' => $response->status(),
             'created_at' => now(),
             'updated_at' => now()
         ]);
