@@ -86,7 +86,7 @@ class DomainController extends Controller
             ->first();
 
         if (!$domain) {
-            abort(404);
+            return abort(404);
         }
 
         $domainChecks = DB::table('domain_checks')
