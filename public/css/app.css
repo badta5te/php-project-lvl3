@@ -7701,6 +7701,10 @@ fieldset:disabled .btn {
   margin-bottom: 3rem !important;
 }
 
+.ml-1 {
+    margin-left: 1rem !important;
+}
+
 .mb-auto {
   margin-bottom: auto !important;
 }
