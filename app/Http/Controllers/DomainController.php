@@ -14,7 +14,9 @@ class DomainController extends Controller
      */
     public function index()
     {
-        $domains = DB::table('domains')->get();
+        $domains = DB::table('domains')
+            ->orderBy('id')
+            ->get();
 
         $latestCheck = DB::table('domain_checks')
             ->distinct('domain_id')
@@ -82,12 +84,9 @@ class DomainController extends Controller
     public function show($id)
     {
         $domain = DB::table('domains')
-            ->where('id', $id)
-            ->first();
+            ->find($id);
 
-        if (!$domain) {
-            return abort(404);
-        }
+        abort_unless($domain, 404);
 
         $domainChecks = DB::table('domain_checks')
             ->where('domain_id', $id)
