@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use DiDom\Document;
 use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Http\Client\RequestException;
 
 class DomainCheckController extends Controller
 {
@@ -18,13 +19,10 @@ class DomainCheckController extends Controller
 
         abort_unless($domain, 404);
 
-        // $response = Http::get($domain);
-        // $response->throw();
-
         try {
             $response = Http::get($domain);
-        } catch (ConnectionException $exception) {
-            flash('Something was wrong')->error();
+        } catch (ConnectionException | RequestException $exception) {
+            flash($exception->getMessage())->error();
             return redirect()->route('domains.show', $domainId);
         }
 
