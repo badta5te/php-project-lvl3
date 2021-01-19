@@ -40,7 +40,7 @@ class DomainCheckControllerTest extends TestCase
             $this->domain => Http::response($testHtml, 200)
         ]);
 
-        $response = $this->post(route('domain.checks.store', $this->id));
+        $response = $this->post(route('domains.checks.store', $this->id));
         $response->assertStatus(302);
         $this->assertDatabaseHas('domain_checks', [
             'domain_id' => $this->id,

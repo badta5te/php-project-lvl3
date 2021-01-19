@@ -18,7 +18,7 @@ Route::resource('domains', 'DomainController')->only([
     'index', 'store', 'show'
 ]);
 
-Route::resource('domain.checks', 'DomainCheckController')->only('store');
+Route::resource('domains.checks', 'DomainCheckController')->only('store');
 
 Route::get('/', function () {
     return view('welcome');
