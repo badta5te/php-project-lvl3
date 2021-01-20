@@ -21,7 +21,9 @@ class DomainControllerTest extends TestCase
 
         $faker = Factory::create();
         $this->url = $faker->url;
-        $this->domain = parse_url($this->url, PHP_URL_HOST);
+        $urlParts = parse_url($this->url);
+        ['scheme' => $scheme, 'host' => $host] = $urlParts;
+        $this->domain = "{$scheme}://{$host}";
 
         $this->id = DB::table('domains')->insertGetId([
             'name' => $this->domain,

@@ -42,7 +42,9 @@ class DomainController extends Controller
         ]);
 
         $url = $request->input('domain.name');
-        $domain = strtolower(parse_url($url, PHP_URL_HOST));
+        $urlParts = parse_url(strtolower($url));
+        ['scheme' => $scheme, 'host' => $host] = $urlParts;
+        $domain = "{$scheme}://{$host}";
 
         $domainInDb = DB::table('domains')->where('name', $domain)->first();
 
