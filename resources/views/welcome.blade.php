@@ -10,7 +10,7 @@
                 <form action="{{ route('domains.store') }}" method="post"
                     class="d-flex justify-content-center">
                     @csrf
-                    <input type="text" name="domain[name]" value="" class="form-control form-control-lg"
+                    <input type="text" name="domain[name]" value="{{ old('domain.name') }}" class="form-control form-control-lg"
                         placeholder="https://www.example.com" required>
                     <button type="submit" class="btn btn-lg btn-primary ml-1 px-5 text-uppercase">Check</button>
                 </form>

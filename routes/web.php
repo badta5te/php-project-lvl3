@@ -22,4 +22,4 @@ Route::resource('domains.checks', 'DomainCheckController')->only('store');
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('homepage');

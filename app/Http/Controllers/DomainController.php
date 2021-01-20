@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class DomainController extends Controller
 {
@@ -37,9 +38,16 @@ class DomainController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $validator = Validator::make($request->all(), [
             'domain.name' => 'required|url'
         ]);
+
+        if ($validator->fails()) {
+            return redirect()
+                        ->route('homepage')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
 
         $url = $request->input('domain.name');
         $urlParts = parse_url(strtolower($url));
