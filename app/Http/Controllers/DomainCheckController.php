@@ -8,11 +8,20 @@ use Illuminate\Support\Facades\Http;
 use DiDom\Document;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\RequestException;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Redirector;
 
 class DomainCheckController extends Controller
 {
-    public function store($domainId)
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  int  $domainId
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function store(int $domainId)
     {
+
         $domain = DB::table('domains')
             ->find($domainId)
             ->name;
@@ -23,6 +32,7 @@ class DomainCheckController extends Controller
             $response = Http::get($domain);
         } catch (ConnectionException | RequestException $exception) {
             flash($exception->getMessage())->error();
+            /** @phpstan-ignore-next-line */
             return redirect()->route('domains.show', $domainId);
         }
 
@@ -47,6 +57,7 @@ class DomainCheckController extends Controller
 
         flash('Url checked')->info();
 
+        /** @phpstan-ignore-next-line */
         return redirect()
             ->route('domains.show', $domainId);
     }

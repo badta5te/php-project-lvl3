@@ -11,9 +11,9 @@ use Tests\TestCase;
 
 class DomainControllerTest extends TestCase
 {
-    protected $id;
-    protected $domain;
-    protected $url;
+    protected int $id;
+    protected string $domain;
+    protected string $url;
 
     public function setUp(): void
     {
@@ -32,14 +32,14 @@ class DomainControllerTest extends TestCase
         ]);
     }
 
-    public function testIndex()
+    public function testIndex(): void
     {
         $response = $this->get(route('domains.index'));
         $response->assertOk();
         $response->assertSee($this->domain);
     }
 
-    public function testStore()
+    public function testStore(): void
     {
         $this->withoutMiddleware();
 
@@ -54,7 +54,7 @@ class DomainControllerTest extends TestCase
         $this->assertDatabaseHas('domains', ['id' => $this->id, 'name' => $this->domain]);
     }
 
-    public function testShow()
+    public function testShow(): void
     {
         $response = $this->get(route('domains.show', $this->id));
         $response->assertOk();

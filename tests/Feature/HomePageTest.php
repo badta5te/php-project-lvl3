@@ -7,7 +7,7 @@ use Tests\TestCase;
 
 class HomePageTest extends TestCase
 {
-    public function testHomePage()
+    public function testHomePage(): void
     {
         $response = $this->get('/');
 

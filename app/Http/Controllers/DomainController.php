@@ -11,7 +11,7 @@ class DomainController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function index()
     {
@@ -34,7 +34,7 @@ class DomainController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
@@ -43,6 +43,7 @@ class DomainController extends Controller
         ]);
 
         if ($validator->fails()) {
+            /** @phpstan-ignore-next-line */
             return redirect()
                         ->route('homepage')
                         ->withErrors($validator)
@@ -56,9 +57,11 @@ class DomainController extends Controller
 
         $domainInDb = DB::table('domains')->where('name', $domain)->first();
 
+        /** @var $domainInDb object */
         if ($domainInDb) {
             flash('Url exists');
 
+            /** @phpstan-ignore-next-line */
             return redirect()
                 ->route('domains.show', $domainInDb->id);
         }
@@ -71,6 +74,7 @@ class DomainController extends Controller
 
         flash('Url added')->success();
 
+        /** @phpstan-ignore-next-line */
         return redirect()
             ->route('domains.show', $id);
     }
@@ -79,7 +83,7 @@ class DomainController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function show($id)
     {

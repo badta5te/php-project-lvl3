@@ -32,6 +32,7 @@ deploy:
 
 lint:
 	composer phpcs -- --standard=PSR12 app routes tests
+	# composer phpstan -- --memory-limit=2G --level=8 analyse app/Http/Controllers/ routes/web.php tests
 
 lint-fix:
 	composer phpcbf

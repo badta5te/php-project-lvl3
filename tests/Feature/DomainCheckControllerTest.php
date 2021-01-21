@@ -11,9 +11,9 @@ use Tests\TestCase;
 
 class DomainCheckControllerTest extends TestCase
 {
-    protected $id;
-    protected $domain;
-    protected $url;
+    protected int $id;
+    protected string $domain;
+    protected string $url;
 
     public function setUp(): void
     {
@@ -33,7 +33,7 @@ class DomainCheckControllerTest extends TestCase
         ]);
     }
 
-    public function testStore()
+    public function testStore(): void
     {
         $this->withoutMiddleware();
 
